@@ -1,0 +1,18 @@
+# Tahap 1: Build Vue app menggunakan Bun
+FROM docker.io/oven/bun:latest AS builder
+WORKDIR /app
+COPY package.json bun.lock* ./
+RUN bun install
+COPY . .
+RUN bun run build
+
+# Tahap 2: Pakai Nginx Alpine (Lebih ringan & Rootless friendly)
+FROM docker.io/library/nginx:alpine
+
+# Salin hasil build dari tahap 1
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Port tetap 80 (internal), nanti di-publish ke 3000 oleh Quadlet
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

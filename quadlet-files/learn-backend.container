@@ -1,0 +1,22 @@
+[Unit]
+Description=Rust Backend Service
+After=learn-db.service
+
+[Container]
+ContainerName=learn-rust
+# PAKAI NAMA INI (bebas tapi harus valid string)
+Image=my-rust-backend
+Network=learn
+PublishPort=8080:8080
+
+[Build]
+# PASTIKAN PATH INI ABSOLUT
+Context=/home/markx/programming/rust/cargoRs/podman/backend-rust
+
+[Service]
+Restart=always
+# Tambahkan ini karena compile Rust itu lama
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

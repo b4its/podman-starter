@@ -1,0 +1,14 @@
+[Unit]
+Description=MySQL Database for Learning
+
+[Container]
+ContainerName=learn-db
+Image=docker.io/library/mysql:8.4
+Environment=MYSQL_DATABASE=learn MYSQL_ALLOW_EMPTY_PASSWORD=yes
+Volume=mysql-data:/var/lib/mysql:Z
+Network=learn-network
+NetworkOptions=slirp4netns
+
+
+[Install]
+WantedBy=default.target
