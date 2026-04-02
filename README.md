@@ -2,7 +2,7 @@
 ### structure
 ```bash
 learn/
-└── quadlet-files/  <-- Simpan link/file ke sini
+└── quadlet-files/ 
     ├── learn.network
     ├── mysql-data.volume
     ├── learn-db.container
@@ -16,8 +16,20 @@ systemctl --user start learn-network.service
 systemctl --user start mysql-data-volume.service
 systemctl --user start learn-db.service
 ```
+### untuk mematikan semua container dan service podman
+```bash
+podman stop $(podman ps -q)
+systemctl --user stop podman-restart.service
+
+systemctl --user stop learn-frontend.service learn-backend.service learn-network.service
+systemctl --user disable learn-frontend.service learn-backend.service learn-network.service
+podman rm -f $(podman ps -aq)
+```
 
 ```bash
+#lihat semua nama service
+systemctl --user list-units --type=service | grep learn
+
 # membuat folder jika belum ada di system
 mkdir -p ~/.config/containers/systemd/
 
@@ -79,4 +91,9 @@ rm -f ~/.config/containers/systemd/learn-frontend.container
 
 # Buat ulang link (pastikan path ke folder project benar)
 ln -s ~/programming/rust/cargoRs/podman/quadlet-files/learn-frontend.container ~/.config/containers/systemd/
+```
+
+### cek container sedang berjalan
+```bash
+podman ps -a
 ```
