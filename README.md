@@ -1,5 +1,6 @@
 ## Learn podman + quadlet with Rust, and Vue.
 ### structure
+```bash
 learn/
 └── quadlet-files/  <-- Simpan link/file ke sini
     ├── learn.network
@@ -7,6 +8,7 @@ learn/
     ├── learn-db.container
     ├── learn-backend.container
     └── learn-frontend.container
+```
 ### untuk menjalankan semua service dari podman
 ```bash
 systemctl --user daemon-reload
